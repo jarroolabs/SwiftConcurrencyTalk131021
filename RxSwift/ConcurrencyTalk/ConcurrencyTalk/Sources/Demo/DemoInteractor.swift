@@ -1,15 +1,40 @@
+import RxSwift
 import AVFoundation
 
-struct DemoInteractor {
-    private let avPlayer: AVPlayer
+protocol MovieApiInterface {
+    func fetchMovieDetails(id: String) -> Single<MovieDetails>
+//    func fetchMovieCredits(id: String) -> Single<MovieCredits>
+}
 
-    init(avPlayer: AVPlayer) {
+enum MovieApiError: Error {
+    case statusFailed(Int)
+}
+
+class DemoInteractor {
+    private let avPlayer: AVPlayer
+    private let movieApi: MovieApiInterface
+    private let bag = DisposeBag()
+    
+    init(avPlayer: AVPlayer, movieApi: MovieApiInterface) {
         self.avPlayer = avPlayer
+        self.movieApi = movieApi
     }
-        
-    func loadAsset(for urlString: String) {
-        let item = AVPlayerItem(asset: AVURLAsset(url: URL(string: urlString)!))
-        avPlayer.replaceCurrentItem(with: item)
+    
+    func loadMovie(id: String, url: String) {
+        avPlayer.replaceCurrentItem(
+            with: AVPlayerItem(asset: AVURLAsset(url: URL(string: url)!))
+        )
+        movieApi
+            .fetchMovieDetails(id: id)
+            .subscribe(
+                onSuccess: { movieDetails in
+                    print(movieDetails)
+                },
+                onFailure: { error in
+                    print(error)
+                }
+            )
+            .disposed(by: bag)
     }
     
     func play() {

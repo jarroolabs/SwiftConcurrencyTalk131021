@@ -8,6 +8,8 @@ class AVPlayerView: UIView {
 
     init(avPlayer: AVPlayer) {
         super.init(frame: .zero)
+        backgroundColor = .black
+
         let playerLayer = layer as! AVPlayerLayer
         playerLayer.player = avPlayer
         playerLayer.videoGravity = .resizeAspect

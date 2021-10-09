@@ -10,8 +10,8 @@ class DemoPresenter {
         self.interactor = interactor
     }
     
-    func startVideo(url: String) {
-        interactor.loadAsset(for: url)
+    func loadMovie(id: String, url: String) {
+        interactor.loadMovie(id: id, url: url)
         interactor.play()
     }
 }

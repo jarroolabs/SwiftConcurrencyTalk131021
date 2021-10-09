@@ -8,7 +8,17 @@ class DemoViewController: UIViewController, DemoViewInterface {
     static func make() -> DemoViewController {
         let player = AVPlayer()
         let viewController = DemoViewController(avPlayer: player)
-        viewController.presenter = DemoPresenter(view: viewController, interactor: DemoInteractor(avPlayer: player))
+        viewController.presenter = DemoPresenter(
+            view: viewController,
+            interactor: DemoInteractor(
+                avPlayer: player,
+                movieApi: TMDBApi(
+                    urlSession: .shared,
+                    apiKey: "2c72472691b209509f451fdfb0479e8b",
+                    language: "en-US"
+                )
+            )
+        )
         return viewController
     }
     
@@ -29,7 +39,8 @@ class DemoViewController: UIViewController, DemoViewInterface {
             playerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
         
-        presenter.startVideo(
+        presenter.loadMovie(
+            id: "133701",
             url: "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
         )
     }
