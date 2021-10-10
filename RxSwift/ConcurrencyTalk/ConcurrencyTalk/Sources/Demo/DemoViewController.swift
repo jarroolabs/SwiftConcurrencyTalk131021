@@ -4,6 +4,7 @@ import UIKit
 class DemoViewController: UIViewController, DemoViewInterface {
     private let playerView: AVPlayerView
     private let pauseView: PauseView
+
     var presenter: DemoPresenter!
     
     static func make() -> DemoViewController {

@@ -17,18 +17,17 @@ class DemoPresenter {
     }
     
     func loadMovie(id: String, url: String) {
+        interactor.play()
+
         interactor
             .loadMovie(id: id, url: url)
             .subscribe(onCompleted: { [weak self] in
-                let movie = (self?.interactor.movie)!
-                self?.view.updatePauseViewModel(to: PauseViewModel(
-                    title: movie.title,
-                    description: movie.description
-                ))
+                guard let self = self else { return }
+                self.view.updatePauseViewModel(
+                    to: PauseViewModelMapper(movie: self.interactor.movie!).map()
+                )
             })
             .disposed(by: bag)
-        
-        interactor.play()
     }
     
     func togglePause() {
@@ -40,5 +39,24 @@ class DemoPresenter {
         } else {
             interactor.play()
         }
+    }
+}
+
+private struct PauseViewModelMapper {
+    let movie: Movie
+    
+    func map() -> PauseViewModel {
+        PauseViewModel(
+            title: mapTitleWithStars(),
+            description: movie.description,
+            actors: movie.actors.prefix(5).joined(separator: "\n")
+        )
+    }
+    
+    private func mapTitleWithStars() -> String {
+        let starRating = Int(((movie.rating / 10) * 5).rounded(.up))
+        let filledStars = Array(repeating: "★", count: starRating)
+        let emptyStars = Array(repeating: "☆", count: 5-starRating)
+        return "\(movie.title) \(filledStars.joined(separator: ""))\(emptyStars.joined(separator: ""))"
     }
 }

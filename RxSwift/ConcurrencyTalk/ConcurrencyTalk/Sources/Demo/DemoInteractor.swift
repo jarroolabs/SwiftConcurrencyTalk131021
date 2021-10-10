@@ -3,7 +3,7 @@ import AVFoundation
 
 protocol MovieApiInterface {
     func fetchMovieDetails(id: String) -> Single<MovieDetails>
-//    func fetchMovieCredits(id: String) -> Single<MovieCredits>
+    func fetchMovieCredits(id: String) -> Single<MovieCredits>
 }
 
 enum MovieApiError: Error {
@@ -25,17 +25,24 @@ class DemoInteractor {
         avPlayer.replaceCurrentItem(
             with: AVPlayerItem(asset: AVURLAsset(url: URL(string: url)!))
         )
-        return movieApi
-            .fetchMovieDetails(id: id)
+        return Observable
+            .combineLatest(
+                movieApi.fetchMovieDetails(id: id).asObservable(),
+                movieApi.fetchMovieCredits(id: id).asObservable()
+            )
             .observe(on: MainScheduler.instance)
-            .do(onSuccess: { [weak self] movieDetails in
+            .do(onNext: { [weak self] details, credits in
                 self?.movie = Movie(
                     id: id,
-                    title: movieDetails.originalTitle,
-                    description: movieDetails.overview,
-                    rating: movieDetails.voteAverage
+                    title: details.originalTitle,
+                    description: details.overview,
+                    rating: details.voteAverage,
+                    actors: credits.cast.map { actor in
+                        "\(actor.name) as \"\(actor.character)\""
+                    }
                 )
             })
+            .flatMap { _ in Observable<Never>.empty() }
             .asCompletable()
     }
     
@@ -53,4 +60,5 @@ struct Movie {
     let title: String
     let description: String
     let rating: Float // out of 10
+    let actors: [String]
 }
