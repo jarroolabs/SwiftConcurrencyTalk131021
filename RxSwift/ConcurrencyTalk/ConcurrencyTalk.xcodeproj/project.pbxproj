@@ -19,6 +19,7 @@
 		FA166E9227123BF6001A4124 /* TMDBApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA166E9127123BF6001A4124 /* TMDBApi.swift */; };
 		FA166E972712403E001A4124 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = FA166E962712403E001A4124 /* RxCocoa */; };
 		FA166E992712411F001A4124 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA166E982712411F001A4124 /* RxSwift */; };
+		FA166E9B2713725B001A4124 /* PauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA166E9A2713725B001A4124 /* PauseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		FA166E8D2712350E001A4124 /* DemoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoPresenter.swift; sourceTree = "<group>"; };
 		FA166E8F2712352E001A4124 /* DemoInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoInteractor.swift; sourceTree = "<group>"; };
 		FA166E9127123BF6001A4124 /* TMDBApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBApi.swift; sourceTree = "<group>"; };
+		FA166E9A2713725B001A4124 /* PauseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				FA166E8A27122DDF001A4124 /* AVPlayerView.swift */,
+				FA166E9A2713725B001A4124 /* PauseView.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				FA166E8B27122DDF001A4124 /* AVPlayerView.swift in Sources */,
 				FA166E902712352E001A4124 /* DemoInteractor.swift in Sources */,
 				FA166E7027122845001A4124 /* AppDelegate.swift in Sources */,
+				FA166E9B2713725B001A4124 /* PauseView.swift in Sources */,
 				FA166E7227122845001A4124 /* SceneDelegate.swift in Sources */,
 				FA166E8E2712350E001A4124 /* DemoPresenter.swift in Sources */,
 				FA166E7427122845001A4124 /* DemoViewController.swift in Sources */,
