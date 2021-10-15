@@ -31,15 +31,15 @@ class DemoInteractor {
         async let credits = movieApi.fetchMovieCredits(id: id)
         
         do {
-        movie = try await Movie(
-            id: id,
-            title: details.originalTitle,
-            description: details.overview,
-            rating: details.voteAverage,
-            actors: credits.cast.map { actor in
-                "\(actor.name) as \"\(actor.character)\""
-            }
-        )
+            movie = try await Movie(
+                id: id,
+                title: details.originalTitle,
+                description: details.overview,
+                rating: details.voteAverage,
+                actors: credits.cast.map { actor in
+                    "\(actor.name) as \"\(actor.character)\""
+                }
+            )
         } catch let error as URLError {
             // Handle URL errors
             _ = error

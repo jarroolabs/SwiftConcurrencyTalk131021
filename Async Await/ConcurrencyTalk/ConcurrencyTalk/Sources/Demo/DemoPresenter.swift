@@ -14,7 +14,16 @@ class DemoPresenter {
         self.interactor = interactor
     }
     
-    func loadMovie(id: String, url: String) async {
+    func viewDidLoad() {
+        Task {
+            await loadMovie(
+                id: "133701",
+                url: "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
+            )
+        }
+    }
+    
+    private func loadMovie(id: String, url: String) async {
         interactor.play()
 
         await interactor.loadMovie(id: id, url: url)

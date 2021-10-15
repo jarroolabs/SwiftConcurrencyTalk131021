@@ -16,7 +16,14 @@ class DemoPresenter {
         self.interactor = interactor
     }
     
-    func loadMovie(id: String, url: String) {
+    func viewDidLoad() {
+        loadMovie(
+            id: "133701",
+            url: "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
+        )
+    }
+    
+    private func loadMovie(id: String, url: String) {
         interactor.play()
 
         interactor

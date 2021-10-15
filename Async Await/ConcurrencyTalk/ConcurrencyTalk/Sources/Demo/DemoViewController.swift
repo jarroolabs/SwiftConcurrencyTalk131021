@@ -40,12 +40,7 @@ class DemoViewController: UIViewController, DemoViewInterface {
         layoutPauseView()
         pauseView.isHidden = true
         
-        Task.detached {
-            await self.presenter.loadMovie(
-                id: "133701",
-                url: "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-            )
-        }
+        presenter.viewDidLoad()
     }
     
     func setPauseViewVisibility(to isVisible: Bool) {
